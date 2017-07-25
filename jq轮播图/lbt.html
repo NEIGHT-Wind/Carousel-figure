@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="lbt.css">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="pic">
+			<div class="left-side">
+				<img src="img/1.jpg">
+			</div>
+			<div class="middle">
+				<img src="img/2.jpg">
+			</div>
+			<div class="right-side">
+				<img src="img/3.jpg">
+			</div>
+			<div>
+				<img src="img/4.jpg">
+			</div>
+			<div>
+				<img src="img/5.jpg">
+			</div>
+			<div>
+				<img src="img/6.jpg">
+			</div>
+		</div>
+		<div class="circle">
+			<i style="background-color: yellow"></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+		</div>
+		<div class="btn btnleft">&lt;</div>
+		<div class="btn btnright">&gt;</div>
+	</div>
+	<script src="jquery.js"></script>
+	<script type="text/javascript">
+	var lbt = {
+		page : 0,
+		boolen : true,
+		init : function () {
+			var that = this;
+			var timer = setInterval(that.rightChange.bind(that), 3000);
+			$('.wrapper').on('click', function (e) {
+				var target = e.target,
+					num,
+					boolen = false;
+				$('.circle i').each(function (index, ele) {
+					ele == target ? boolen = true : boolen;
+				})
+				if (target == $('.btn').eq(0)[0]) {
+					that.leftChange();
+				}else if (target == $('.btn').eq(1)[0]) {
+					that.rightChange();
+				}else if (boolen) {
+					$('.circle i').css('backgroundColor', 'white').eq( $(target).index() ).css('backgroundColor', 'yellow');
+					num = (that.page % 6) - $(target).index();
+					if (num == 0) {
+						return false;
+					}else if (num == -1 || num == 5) {
+						that.rightChange();
+					}else if (num == 1 || num == -5) {
+						that.leftChange();
+					}else if (num) {
+						that.overChange($(target).index());
+					}
+				}else {
+					return;
+				}
+			});
+			$('.wrapper').on('mouseover', function() {
+				clearInterval(timer);
+			}).end().on('mouseout', function() {
+				clearInterval(timer);
+				timer = setInterval(that.rightChange.bind(that), 3000);
+			});
+		},
+		rightChange : function () {
+			var that = this;
+			if(!that.boolen) {
+				return false;
+			}
+			that.boolen = false;
+			$('.pic div').eq( that.page % 6 )
+						.animate({'left' : '-160px','top' : '214px', 'width' : '160px', 'height' : '213px', 'z-index' : 0, 'opacity' : '0'}, 500)
+						.end().eq( (that.page + 1) % 6 )
+						.animate({'left' : '0px', 'top' : '107px', 'width' : '320px', 'height' : '427px', 'z-index' : 1, 'opacity' : '0.5'}, 500)
+						.end().eq( (that.page + 2 ) % 6 )
+						.animate({'left' : '213px', 'top' : '0px', 'width' : '480px', 'height' : '640px', 'z-index' : 2, 'opacity' : '1'}, 500)
+						.end().eq( (that.page + 3) %  6)
+						.css({'left' : '906px', 'top' : '213px', 'width' : '160px', 'height' : '213px', 'opacity' : '0'})
+						.animate({'left' : '586px', 'top' : '107px', 'width' : '320px', 'height' : '427px', 'z-index' : 1, 'opacity' : '0.5'}, 500, function() {
+								that.boolen = true;
+						});
+			$('.circle i').each(function (index, ele) {
+				index == (that.page + 1) % 6 ? $(this).css('backgroundColor', 'yellow') : $(this).css('backgroundColor', 'white');
+			});
+			that.page ++;
+		},
+		leftChange : function () {
+			var that = this;
+			if(!that.boolen) {
+				return false;
+			}
+			that.boolen = false;
+			$('.pic div').eq( (that.page + 5) % 6 )
+						.css({'left' : '-160px', 'top' : '214px', 'width' : '160px', 'height' : '213px', 'z-index' : '0', 'opacity' : '0'})
+						.animate({'left' : '0px', 'top' : '107px', 'width' : '320px', 'height' : '427px', 'z-index' : 1, 'opacity' : '0.5'}, 500)
+						.end().eq(that.page % 6)
+						.animate({'left' : '213px', 'top' : '0px', 'width' : '480px', 'height' : '640px', 'z-index' : 2, 'opacity' : '1'}, 500)
+						.end().eq( (that.page + 1) % 6 )
+						.animate({'left' : '586px', 'top' : '107px', 'width' : '320px', 'height' : '427px', 'z-index' : 1, 'opacity' : '0.5'}, 500)
+						.end().eq( (that.page + 2) % 6 )
+						.animate({'left' : '906px', 'top' : '214px', 'width' : '160px', 'height' : '213px', 'z-index' : 0, 'opacity' : '0'}, 500 ,function() {
+								that.boolen = true;
+						});
+			$('.circle i').each(function (index, ele) {
+				index == (that.page + 5) % 6 ? $(this).css('backgroundColor', 'yellow') : $(this).css('backgroundColor', 'white');
+			});
+			--that.page < 0 ? that.page += 6 : that.page;
+		},
+		overChange : function (index) {
+			var that = this;
+			if(!that.boolen) {
+				return false;
+			}
+			that.boolen = false;
+			$('.pic div').eq( that.page % 6 )
+						.animate({'left' : '213px', 'top' : '213px', 'width' : '160px', 'height' : '213px', 'opacity' : '0'}, 300)
+						.end().eq( (that.page + 1) % 6 )
+						.animate({'left' : '333px', 'top' : '160px', 'width' : '240px', 'height' : '320px', 'opacity' : '0'}, 300)
+						.end().eq( (that.page + 2) % 6 )
+						.animate({'left' : '573px', 'top' : '213px', 'width' : '160px', 'height' : '213px', 'opacity' : '0'}, 300, function () {
+								$('.pic div').eq(index)
+											.animate({'left' : '0px', 'top' : '107px', 'width' : '320px', 'height' : '427px', 'z-index' : 1, 'opacity' : '0.5'}, 300)
+											.end().eq( (index + 1) % 6 )
+											.animate({'left' : '213px', 'top' : '0px', 'width' : '480px', 'height' : '640px', 'z-index' : 2, 'opacity' : '1'}, 300)
+											.end().eq( (index + 2) % 6 )
+											.animate({'left' : '586px', 'top' : '107px', 'width' : '320px', 'height' : '427px', 'z-index' : 1, 'opacity' : '0.5'}, 300, function() {
+													that.boolen = true;
+											})
+						})
+			that.page = index;
+		}
+	}
+	lbt.init();
+	</script>
+</body>
+</html>

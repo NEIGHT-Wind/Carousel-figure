@@ -1,0 +1,100 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+body{
+	background-color: gray;
+}
+.wrapper{
+	position: relative;
+	width: 906px;
+	height: 640px;
+	margin: 10px auto;
+}
+.wrapper .pic{
+	position: absolute;
+	height: 640px;
+	width: 906px;
+	overflow: hidden;
+}
+.wrapper .pic .middle{
+	width: 480px;
+	height: 640px;
+	z-index: 2;
+	left: 213px;
+	top: 0px;
+	opacity: 1;
+}
+.wrapper .pic .left-side{
+	width: 320px;
+	height: 427px;
+	z-index: 1;
+	left: 0px;
+	top: 107px;
+	opacity: 0.5;
+}
+.wrapper .pic .right-side{
+	width: 320px;
+	height: 427px;
+	z-index: 1;
+	right: 0px;
+	top: 107px;
+	opacity: 0.5;
+}
+.wrapper .pic div{
+	position: absolute;
+	z-index: 0;
+	width: 0px;
+	height: 0px;
+	right: 107px;
+	top: 320px;
+}
+.wrapper .pic img{
+	width: 100%;
+	height: 100%;
+}
+
+
+.wrapper .circle{
+	position: absolute;
+	width: 120px;
+	height: 10px;
+	bottom: 10px;
+	left: 50%;
+	margin-left: -60px;
+	z-index: 3;
+}
+.wrapper .circle i{
+	float: left;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin: 0 5px 0 5px;
+	background-color: white;
+}
+
+
+.wrapper .btn:hover{
+	opacity: 1;
+}
+.wrapper .btn{
+	position: absolute;
+	top: 50%;
+	display: inline-block;
+	width: 40px;
+	height: 50px;
+	color: yellow;
+	font-size: 20px;
+	text-align: center;
+	line-height: 50px;
+	background-color: black;
+	z-index: 3;
+	opacity: 0.5;
+}
+.wrapper .btnleft{
+	left: 20px;
+}
+.wrapper .btnright{
+	right: 20px;
+}
